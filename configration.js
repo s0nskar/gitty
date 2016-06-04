@@ -1,6 +1,6 @@
 const nconf = require('nconf').file({file: getUserHome() + '/gitty.json'});
 
-fuction saveSettings(settingKey, settingValue) {
+function saveSettings(settingKey, settingValue) {
   nconf.set(settingKey, settingValue);
   nconf.save();
 }
