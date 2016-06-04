@@ -1,4 +1,8 @@
 const electron = require('electron');
+const {ipcMain} = require('electron');
+
+// External packages
+const shell = require('shelljs');
 
 const {app} = electron;
 const {BrowserWindow} = electron;
@@ -25,7 +29,23 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if(win === null){
+  if (win === null){
     createWindow();
   }
+});
+
+
+ipcMain.on('refresh-local-repos', () => {
+
+  // command for finding all git repos as base dir ~.
+  let gitCommand = 'find ~ -type d -name .git | xargs -n 1 dirname';
+
+  shell.exec(gitCommand, (err, stdout, stderr) => {
+    if (err) {
+      console.log('error in exec [%s]', error);
+    } else {
+      console.log('stdout: [%s]', stdout);
+      console.log('stderr: [%s]', stderr);
+    }
+  });
 });

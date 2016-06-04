@@ -1,5 +1,11 @@
 {
   "name": "gitty",
   "version": "0.1.0",
-  "main": "main.js"
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "shelljs": "^0.7.0"
+  }
 }
