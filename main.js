@@ -43,17 +43,19 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on('refresh-local-repos', () => {
+ipcMain.on('refresh-local-repos', (event) => {
 
   // command for finding all git repos as base dir ~.
   let gitCommand = 'find ~ -type d -name .git | xargs -n 1 dirname';
+  // List of local repos
+  let localRepos = []
 
   shell.exec(gitCommand, (err, stdout, stderr) => {
     if (err) {
       console.log('error in exec [%s]', error);
     } else {
-      console.log('stdout: [%s]', stdout);
-      console.log('stderr: [%s]', stderr);
+      localRepos = stdout.split('\n');
+      event.sender.send('local-repos', localRepos);
     }
   });
 });

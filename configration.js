@@ -5,7 +5,7 @@ function saveSettings(settingKey, settingValue) {
   nconf.save();
 }
 
-function.readSettings(settingKey) {
+function readSettings(settingKey) {
   nconf.load();
   return nconf.get(settingKey);
 }
