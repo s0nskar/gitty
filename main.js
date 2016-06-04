@@ -4,12 +4,17 @@ const {ipcMain} = require('electron');
 // External packages
 const shell = require('shelljs');
 
+// Configration module
+const configration = require('./configration.js');
+
 const {app} = electron;
 const {BrowserWindow} = electron;
 
 let win;
 
 function createWindow() {
+  fillConfigrations();
+
   win = new BrowserWindow({width: 800, height: 600});
 
   win.loadURL(`file://${__dirname}/app/index.html`);
@@ -18,6 +23,10 @@ function createWindow() {
   win.on('closed', () => {
     win = null;
   });
+}
+
+function fillConfigrations() {
+// Nothing for now;
 }
 
 app.on('ready', createWindow);
@@ -33,7 +42,6 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
 
 ipcMain.on('refresh-local-repos', () => {
 
