@@ -15,7 +15,7 @@ let win;
 function createWindow() {
   fillConfigrations();
 
-  win = new BrowserWindow({width: 800, height: 600, frame: false});
+  win = new BrowserWindow({width: 800, height: 600});
 
   win.loadURL(`file://${__dirname}/index.html`);
   win.webContents.openDevTools();
@@ -64,3 +64,26 @@ ipcMain.on('refresh-local-repos', (event) => {
     }
   });
 });
+
+ipcMain.on('open-local-repo', (event, repoPath) => {
+  console.log(repoPath);
+  shell.cd(repoPath);
+  /*
+    Getting all git commits
+    Options for format -->
+     %H --> commit hash
+     %an --> author name
+     %ar --> author date, humanize form
+     %s --> message
+  */
+  let gitCommand = 'git log --pretty=format:"%H - %an, %ar : %s"'
+  shell.exec(gitCommand, (err, stdout, stderr) => {
+    if (err){
+      console.log('error in exec [%s]', error);
+    } else {
+      allCommits = stdout.split('\n');
+      console.log(allCommits);
+      event.sender.send('repo-commits', allCommits);
+    }
+  });
+})
