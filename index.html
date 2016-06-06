@@ -6,6 +6,9 @@
 
     <link rel="stylesheet" href="app/css/global.css">
     <link rel="stylesheet" href="app/css/nav.css">
+    <link rel="stylesheet" href="app/css/about.css">
+
+    <link rel="import" href="app/sections/about.html">
   </head>
   <body>
     <nav class="nav is-shown">
@@ -18,6 +21,10 @@
         <button type="button" id="refresh-local-repos" class="nav-button">Refresh <strong>local repos</strong></button>
       </div>
     </nav>
+    <main class="content"></main>
+    <script>
+      require('./app/import.js');
+    </script>
     <script src="app/js/index.js"></script>
   </body>
 </html>

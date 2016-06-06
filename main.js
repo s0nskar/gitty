@@ -15,7 +15,7 @@ let win;
 function createWindow() {
   fillConfigrations();
 
-  win = new BrowserWindow({width: 800, height: 600});
+  win = new BrowserWindow({width: 800, height: 600, frame: false});
 
   win.loadURL(`file://${__dirname}/index.html`);
   win.webContents.openDevTools();
@@ -64,14 +64,3 @@ ipcMain.on('refresh-local-repos', (event) => {
     }
   });
 });
-
-/*
-    repository.html
-*/
-// 
-// ipcMain.on('open-repo-window', (event, repoPath) => {
-//
-//   win.loadURL(`file://${__dirname}/app/repository.html`);
-//
-//   });
-// });
