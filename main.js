@@ -17,7 +17,7 @@ function createWindow() {
 
   win = new BrowserWindow({width: 800, height: 600});
 
-  win.loadURL(`file://${__dirname}/app/index.html`);
+  win.loadURL(`file://${__dirname}/index.html`);
   win.webContents.openDevTools();
 
   win.on('closed', () => {
@@ -43,6 +43,10 @@ app.on('activate', () => {
   }
 });
 
+/*
+    index.html Helpers
+*/
+
 ipcMain.on('refresh-local-repos', (event) => {
 
   // command for finding all git repos as base dir ~.
@@ -55,7 +59,19 @@ ipcMain.on('refresh-local-repos', (event) => {
       console.log('error in exec [%s]', error);
     } else {
       localRepos = stdout.split('\n');
+      configration.saveSettings('localRepos', localRepos);
       event.sender.send('local-repos', localRepos);
     }
   });
 });
+
+/*
+    repository.html
+*/
+// 
+// ipcMain.on('open-repo-window', (event, repoPath) => {
+//
+//   win.loadURL(`file://${__dirname}/app/repository.html`);
+//
+//   });
+// });
