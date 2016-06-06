@@ -31,19 +31,43 @@ ipcRenderer.on('local-repos', (event, localRepos) => {
 
     repoDiv.addEventListener('click', (repo) => {
       // console.log(repo);
+      prepareRepo('/home/maniac/code/python/dvdf');
       ipcRenderer.send('get-commits', '/home/maniac/code/python/dvdf');
       ipcRenderer.send('get-branches', '/home/maniac/code/python/dvdf');
     });
   });
 });
 
+function prepareRepo(repoPath){
+  let repoName = path.basename(repoPath);
+  document.querySelector(".section-title").innerHTML = repoName;
+}
+
 ipcRenderer.on('commits', (event, allCommits) => {
   let content = document.querySelector('.content');
 
   allCommits.forEach((commit) => {
-    let a = document.createElement('p')
-    a.appendChild(document.createTextNode(commit));
-    content.appendChild(a);
+    /*
+      Commit splitting
+    */
+    commit = commit.split(' | ')
+    let hash = commit[0];
+    let authorName = commit[1];
+    let autherDate = commit[2];
+    let commitMsg = commit[3];
+
+    let card = document.querySelector('#commit-list');
+    let cardWrapper = document.createElement('div');
+    let toggleBtn = document.createElement('button');
+    let cardMeta = document.createElement('div');
+    cardWrapper.classList.add('card-wrapper');
+    toggleBtn.classList.add('js-container-target', 'card-toggle-button');
+    cardMeta.classList.add('card-meta', 'u-avoid-clicks');
+    cardMeta.innerHTML = authorName + ', ' + autherDate;
+    toggleBtn.innerHTML = commitMsg;
+    toggleBtn.appendChild(cardMeta);
+    cardWrapper.appendChild(toggleBtn);
+    card.appendChild(cardWrapper);
   });
 });
 

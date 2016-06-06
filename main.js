@@ -79,7 +79,7 @@ ipcMain.on('get-commits', (event, repoPath) => {
      %ar --> author date, humanize form
      %s --> message
   */
-  let gitCommand = 'git log --pretty=format:"%H - %an, %ar : %s"';
+  let gitCommand = 'git log --pretty=format:"%H | %an | %ar | %s"';
   shell.exec(gitCommand, (err, stdout, stderr) => {
     if (err){
       console.log('error in exec [%s]', error);
