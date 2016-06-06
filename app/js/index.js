@@ -1,20 +1,22 @@
 const {ipcRenderer} = require('electron');
 
-let refreshLocalRepos = document.getElementById('refresh-local-repos');
+const path = require('path');
 
-refreshLocalRepos.addEventListener('click', () => {
+let refreshLocalReposBtn = document.getElementById('refresh-local-repos');
+
+refreshLocalReposBtn.addEventListener('click', () => {
   ipcRenderer.send('refresh-local-repos');
 });
 
 ipcRenderer.on('local-repos', (event, localRepos) => {
-  console.log(localRepos)
-  let repoNav = document.getElementById('repos');
-  repoNav.innerHTML = '';
+
+  let repoNav = document.getElementById('local-repos');
 
   localRepos.forEach((repo) => {
-    let repoDiv = document.createElement('div');
-    let repoName = document.createTextNode(repo);
-    repoDiv.appendChild(repoName);
-    repoNav.appendChild(repoDiv);
+    let repoName = path.basename(repo);
+    let repoBtn = document.createElement('button');
+    repoBtn.className += "nav-button local-repos";
+    repoBtn.appendChild(document.createTextNode(repoName));
+    repoNav.appendChild(repoBtn);
   });
 });
