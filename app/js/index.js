@@ -21,6 +21,7 @@ ipcRenderer.on('local-repos', (event, localRepos) => {
     let repoDiv = document.createElement('div');
     let repoBtn = document.createElement('button');
     let repoPath = document.createElement('div');
+
     repoBtn.className += "nav-button local-repos";
     repoBtn.appendChild(document.createTextNode(repoName));
     repoPath.hidden = true;
@@ -29,11 +30,11 @@ ipcRenderer.on('local-repos', (event, localRepos) => {
     repoDiv.appendChild(repoPath);
     repoNav.appendChild(repoDiv);
 
-    repoDiv.addEventListener('click', (repo) => {
-      // console.log(repo);
-      prepareRepo('/home/maniac/code/python/dvdf');
-      ipcRenderer.send('get-commits', '/home/maniac/code/python/dvdf');
-      ipcRenderer.send('get-branches', '/home/maniac/code/python/dvdf');
+    repoDiv.addEventListener('click', (event) => {
+      let repoPath = event.path[1].childNodes[1].innerHTML;
+      prepareRepo(repoPath);
+      ipcRenderer.send('get-commits', repoPath);
+      ipcRenderer.send('get-branches', repoPath);
     });
   });
 });
