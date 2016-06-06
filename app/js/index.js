@@ -72,11 +72,14 @@ ipcRenderer.on('commits', (event, allCommits) => {
 });
 
 ipcRenderer.on('branches', (event, branches) => {
-  let content = document.querySelector('.content');
+  let cardTitle =  document.querySelector(".section-title")
 
-  branches.forEach((commit) => {
-    let a = document.createElement('p')
-    a.appendChild(document.createTextNode(commit));
-    content.appendChild(a);
+  branches.forEach((branch) => {
+    if (branch.startsWith('*')) {
+      let cardMeta = document.createElement('div');
+      cardMeta.classList.add('card-meta', 'u-avoid-clicks');
+      cardMeta.innerHTML = branch;
+      cardTitle.appendChild(cardMeta);
+    }
   });
 });
