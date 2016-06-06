@@ -31,15 +31,26 @@ ipcRenderer.on('local-repos', (event, localRepos) => {
 
     repoDiv.addEventListener('click', (repo) => {
       // console.log(repo);
-      ipcRenderer.send('open-local-repo', '/home/maniac/code/python/dvdf');
+      ipcRenderer.send('get-commits', '/home/maniac/code/python/dvdf');
+      ipcRenderer.send('get-branches', '/home/maniac/code/python/dvdf');
     });
   });
 });
 
-ipcRenderer.on('repo-commits', (event, allCommits) => {
+ipcRenderer.on('commits', (event, allCommits) => {
   let content = document.querySelector('.content');
 
   allCommits.forEach((commit) => {
+    let a = document.createElement('p')
+    a.appendChild(document.createTextNode(commit));
+    content.appendChild(a);
+  });
+});
+
+ipcRenderer.on('branches', (event, branches) => {
+  let content = document.querySelector('.content');
+
+  branches.forEach((commit) => {
     let a = document.createElement('p')
     a.appendChild(document.createTextNode(commit));
     content.appendChild(a);
