@@ -15,6 +15,7 @@ refreshLocalReposBtn.addEventListener('click', () => {
 ipcRenderer.on('local-repos', (event, localRepos) => {
 
   let repoNav = document.getElementById('local-repos');
+  repoNav.innerHTML = ''
 
   localRepos.forEach((repo) => {
     let repoName = path.basename(repo);
@@ -42,6 +43,7 @@ ipcRenderer.on('local-repos', (event, localRepos) => {
 function prepareRepo(repoPath){
   let repoName = path.basename(repoPath);
   document.querySelector(".section-title").innerHTML = repoName;
+  document.querySelector("#commit-list").innerHTML = '';
 }
 
 ipcRenderer.on('commits', (event, allCommits) => {
