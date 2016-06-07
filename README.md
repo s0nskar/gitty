@@ -1,6 +1,5 @@
+![Gitty logo](http://s33.postimg.org/z8c6ldx7z/github.png) 
 # Gitty 
-
-![Gitty logo](app/assets/img/logo.svg)
 
 ### Unofficial Client for Ubuntu (*nix)
 
