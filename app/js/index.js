@@ -6,6 +6,8 @@ setTimeout(() => {
     document.querySelector('#about-modal').classList.remove('is-shown');
 },5000);
 
+ipcRenderer.send('get-local-repos');
+
 let refreshLocalReposBtn = document.getElementById('refresh-local-repos');
 
 refreshLocalReposBtn.addEventListener('click', () => {

@@ -8,7 +8,7 @@ const path = require('path');
 const shell = require('shelljs');
 
 // Configration module
-const configration = require('./configration.js');
+const configration = require('./app/js/configration.js');
 
 const {app} = electron;
 const {BrowserWindow} = electron;
@@ -31,6 +31,7 @@ function createWindow() {
 
   win.loadURL(`file://${__dirname}/index.html`);
   win.webContents.openDevTools();
+  win.maximize();
 
   win.on('closed', () => {
     win = null;
@@ -58,6 +59,14 @@ app.on('activate', () => {
 /*
     index.html Helpers
 */
+
+ipcMain.on('get-local-repos', (event) => {
+  let localRepos = configration.readSettings('localRepos');
+
+  if (localRepos){
+    event.sender.send('local-repos', localRepos);
+  }
+})
 
 ipcMain.on('refresh-local-repos', (event) => {
 
