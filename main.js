@@ -1,6 +1,8 @@
 const electron = require('electron');
 const {ipcMain} = require('electron');
 
+const path = require('path');
+
 // External packages
 const shell = require('shelljs');
 
@@ -15,7 +17,12 @@ let win;
 function createWindow() {
   fillConfigrations();
 
-  win = new BrowserWindow({width: 800, height: 600});
+  let windowsOptions = {
+    width: 800,
+    height: 600
+  }
+
+  win = new BrowserWindow(windowsOptions);
 
   win.loadURL(`file://${__dirname}/index.html`);
   win.webContents.openDevTools();
