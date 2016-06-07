@@ -120,7 +120,8 @@ ipcMain.on('get-commit-info', (event, commitHash) => {
     if (err){
       console.log(err);
     } else {
-      event.sender.send('commit-info', stdout);
+      commitInfo = stdout;
+      event.sender.send('commit-info', commitInfo);
     }
   });
 });

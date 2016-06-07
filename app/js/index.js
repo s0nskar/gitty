@@ -4,7 +4,7 @@ const path = require('path');
 
 setTimeout(() => {
     document.querySelector('#about-modal').classList.remove('is-shown');
-},1000);
+},5000);
 
 let refreshLocalReposBtn = document.getElementById('refresh-local-repos');
 
@@ -77,9 +77,8 @@ ipcRenderer.on('commits', (event, allCommits) => {
       if (cardWrapper.classList.contains('is-open')){
         cardWrapper.classList.remove('is-open')
       } else {
-        console.log('dddd');
         cardWrapper.classList.add('is-open');
-        ipcRenderer.send('get-commit-info', 'ef83d2764312f0e698bc66df674b5977147015b9');
+        ipcRenderer.send('get-commit-info', 'db00cab2ffcd9a88c7bde405907fb52db9af991a');
       }
     });
   });
@@ -104,9 +103,10 @@ ipcRenderer.on('commit-info', (event, info) => {
   let cardWrapper = document.querySelector('.is-open');
   let desctiption = document.createElement('code');
   let p = document.createElement('pre');
-  desctiption.innerHTML = info.replace('<','&lt;').replace('>','&gt;');
+
+  desctiption.innerHTML = info.replace('<', '&lt;').replace('>', '&gt');
   p.appendChild(desctiption);
-  cardBox.appendChild(desctiption);
+  cardBox.appendChild(p);
   cardBox.classList.add('card-box');
   cardWrapper.appendChild(cardBox);
 });
