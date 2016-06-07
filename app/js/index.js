@@ -4,7 +4,7 @@ const path = require('path');
 
 setTimeout(() => {
     document.querySelector('#about-modal').classList.remove('is-shown');
-},5000);
+},3000);
 
 ipcRenderer.send('get-local-repos');
 
@@ -25,7 +25,7 @@ ipcRenderer.on('local-repos', (event, localRepos) => {
     let repoBtn = document.createElement('button');
     let repoPath = document.createElement('div');
 
-    repoBtn.className += "nav-button local-repos";
+    repoBtn.classList.add('nav-button', 'local-repos');
     repoBtn.appendChild(document.createTextNode(repoName));
     repoPath.hidden = true;
     repoPath.appendChild(document.createTextNode(repo));
@@ -70,17 +70,21 @@ ipcRenderer.on('commits', (event, allCommits) => {
     cardMeta.classList.add('card-meta', 'u-avoid-clicks');
     cardMeta.innerHTML = authorName + ', ' + autherDate;
     toggleBtn.innerHTML = commitMsg;
+    cardWrapper.id = hash;
     toggleBtn.appendChild(cardMeta);
     cardWrapper.appendChild(toggleBtn);
     card.appendChild(cardWrapper);
 
     cardWrapper.addEventListener('click', (event) => {
-      cardWrapper = event.target.parentElement;
+      let cardWrapper = event.target.parentElement;
+      let commitHash = event.target.id;
+
       if (cardWrapper.classList.contains('is-open')){
         cardWrapper.classList.remove('is-open')
+        cardWrapper.removeChild(cardWrapper.childNodes[1]);
       } else {
         cardWrapper.classList.add('is-open');
-        ipcRenderer.send('get-commit-info', 'db00cab2ffcd9a88c7bde405907fb52db9af991a');
+        ipcRenderer.send('get-commit-info', commitHash);
       }
     });
   });
