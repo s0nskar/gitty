@@ -1,5 +1,6 @@
 const electron = require('electron');
 const {ipcMain} = require('electron');
+const nativeImage = require('electron').nativeImage;
 
 const path = require('path');
 
@@ -19,7 +20,11 @@ function createWindow() {
 
   let windowsOptions = {
     width: 800,
-    height: 600
+    minWidth: 800,
+    height: 600,
+    minHeight: 600,
+    center: true,
+    title: 'Gitty | Unooficial Github Client'
   }
 
   win = new BrowserWindow(windowsOptions);

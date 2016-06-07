@@ -1,12 +1,37 @@
 {
   "name": "gitty",
+  "productName": "Gitty",
   "version": "0.1.0",
+  "description": "Unofficial Github client for Ubuntu",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-packager . app --platform linux --arch x64 --out dist/",
+    "deb64": "electron-installer-debian --src dist/app-linux-x64/ --dest dist/installers/ --arch amd64"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanskar-modi/gitty.git"
+  },
+  "keywords": [
+    "Electron",
+    "Github",
+    "Client",
+    "Ubuntu",
+  ],
+  "author": "Sanskar Modi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sanskar-modi/gitty/issues"
+  },
+  "homepage": "https://github.com/sanskar-modi/gitty",
   "dependencies": {
     "nconf": "^0.8.4",
     "shelljs": "^0.7.0"
+  },
+  "devDependencies": {
+    "devtron": "^1.2.0",
+    "electron-installer-debian": "^0.3.0",
+    "electron-prebuilt": "^1.2.1"
   }
 }
