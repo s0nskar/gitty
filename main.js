@@ -109,3 +109,18 @@ ipcMain.on('get-branches', (event, repoPath) => {
     }
   });
 });
+
+/*
+  Getting info about a commit
+*/
+ipcMain.on('get-commit-info', (event, commitHash) => {
+  let gitCommand = 'git show ' + commitHash;
+
+  shell.exec(gitCommand, (err, stdout, stderr) => {
+    if (err){
+      console.log(err);
+    } else {
+      event.sender.send('commit-info', stdout);
+    }
+  });
+});

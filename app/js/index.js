@@ -71,6 +71,17 @@ ipcRenderer.on('commits', (event, allCommits) => {
     toggleBtn.appendChild(cardMeta);
     cardWrapper.appendChild(toggleBtn);
     card.appendChild(cardWrapper);
+
+    cardWrapper.addEventListener('click', (event) => {
+      cardWrapper = event.target.parentElement;
+      if (cardWrapper.classList.contains('is-open')){
+        cardWrapper.classList.remove('is-open')
+      } else {
+        console.log('dddd');
+        cardWrapper.classList.add('is-open');
+        ipcRenderer.send('get-commit-info', 'ef83d2764312f0e698bc66df674b5977147015b9');
+      }
+    });
   });
 });
 
@@ -85,4 +96,17 @@ ipcRenderer.on('branches', (event, branches) => {
       cardTitle.appendChild(cardMeta);
     }
   });
+});
+
+ipcRenderer.on('commit-info', (event, info) => {
+  // console.log(info);
+  let cardBox = document.createElement('div');
+  let cardWrapper = document.querySelector('.is-open');
+  let desctiption = document.createElement('code');
+  let p = document.createElement('pre');
+  desctiption.innerHTML = info.replace('<','&lt;').replace('>','&gt;');
+  p.appendChild(desctiption);
+  cardBox.appendChild(desctiption);
+  cardBox.classList.add('card-box');
+  cardWrapper.appendChild(cardBox);
 });
