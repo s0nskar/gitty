@@ -78,7 +78,13 @@ svg {
 
 /* Code */
 
-code, kbd {
+/*
+  Comment for now using gitdiff css for now , If any body interseted to clear
+  mess then you are always welcome. Well i am not going to fix this any time
+  soon
+*/
+
+/*code, kbd {
   font-family: 'Source Code Pro', monospace;
   border-radius: 4px;
   padding: 1px 4px;
@@ -109,7 +115,7 @@ pre > .hljs {
 
 kbd {
   padding: 0.5em;
-}
+}*/
 
 
 /* Utilities ---------------------------- */

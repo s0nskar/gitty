@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . app --platform linux --arch x64 --out dist/",
+    "build": "electron-packager . app --platform linux --icon ./app/assets/img/logo.png --arch x64 --out dist/",
     "deb64": "electron-installer-debian --src dist/app-linux-x64/ --dest dist/installers/ --arch amd64"
   },
   "repository": {

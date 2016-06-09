@@ -7,6 +7,7 @@ const path = require('path');
 // External packages
 const shell = require('shelljs');
 
+const diff = require('./app/diff.js');
 // Configration module
 const configration = require('./app/js/configration.js');
 
@@ -24,7 +25,7 @@ function createWindow() {
     height: 600,
     minHeight: 600,
     center: true,
-    title: 'Gitty | Unooficial Github Client'
+    title: 'Gitty | Unofficial Github Client'
   }
 
   win = new BrowserWindow(windowsOptions);
@@ -90,7 +91,6 @@ ipcMain.on('refresh-local-repos', (event) => {
   Getting list of all commits in a repo
 */
 ipcMain.on('get-commits', (event, repoPath) => {
-  console.log(repoPath);
   shell.cd(repoPath);
   /*
     Getting all git commits
@@ -106,7 +106,6 @@ ipcMain.on('get-commits', (event, repoPath) => {
       console.log('error in exec [%s]', error);
     } else {
       allCommits = stdout.split('\n');
-      console.log(allCommits);
       event.sender.send('commits', allCommits);
     }
   });
@@ -116,7 +115,6 @@ ipcMain.on('get-commits', (event, repoPath) => {
   Getting list of all branches in a repo
 */
 ipcMain.on('get-branches', (event, repoPath) => {
-  console.log(repoPath);
   shell.cd(repoPath);
 
   let gitCommand = 'git branch';
@@ -125,7 +123,6 @@ ipcMain.on('get-branches', (event, repoPath) => {
       console.log('error in exec [%s]', error);
     } else {
       branches = stdout.split('\n');
-      console.log(branches);
       event.sender.send('branches', branches);
     }
   });
@@ -135,14 +132,16 @@ ipcMain.on('get-branches', (event, repoPath) => {
   Getting info about a commit
 */
 ipcMain.on('get-commit-info', (event, commitHash) => {
-  let gitCommand = 'git show ' + commitHash;
-
+  let gitCommand = 'git diff ' + commitHash;
+  console.log(gitCommand);
   shell.exec(gitCommand, (err, stdout, stderr) => {
     if (err){
       console.log(err);
     } else {
-      commitInfo = stdout;
-      event.sender.send('commit-info', commitInfo);
+      diff(stdout, (err, output) => {
+        if (err) console.log(err);
+        event.sender.send('commit-info', output);
+      });
     }
   });
 });

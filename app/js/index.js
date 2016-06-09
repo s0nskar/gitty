@@ -77,7 +77,7 @@ ipcRenderer.on('commits', (event, allCommits) => {
 
     cardWrapper.addEventListener('click', (event) => {
       let cardWrapper = event.target.parentElement;
-      let commitHash = event.target.id;
+      let commitHash = event.target.parentElement.id;
 
       if (cardWrapper.classList.contains('is-open')){
         cardWrapper.classList.remove('is-open')
@@ -104,15 +104,16 @@ ipcRenderer.on('branches', (event, branches) => {
 });
 
 ipcRenderer.on('commit-info', (event, info) => {
-  // console.log(info);
+  console.log(info);
+  xcv = info;
   let cardBox = document.createElement('div');
   let cardWrapper = document.querySelector('.is-open');
-  let desctiption = document.createElement('code');
-  let p = document.createElement('pre');
-
-  desctiption.innerHTML = info.replace('<', '&lt;').replace('>', '&gt');
-  p.appendChild(desctiption);
-  cardBox.appendChild(p);
+  // let desctiption = document.createElement('code');
+  // let p = document.createElement('pre');
+  cardBox.innerHTML = info;
+  // desctiption.innerHTML = info.replace('<', '&lt;').replace('>', '&gt');
+  // p.appendChild(desctiption);
+  // cardBox.appendChild(p);
   cardBox.classList.add('card-box');
   cardWrapper.appendChild(cardBox);
 });
