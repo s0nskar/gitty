@@ -22,12 +22,11 @@ function splitByFile( diff ) {
 			return;
 		}
 		if ( line.charAt( 0 ) === "d" ) {
-			console.log("inside if")
 			isEmpty = false;
 			filename = line.replace( /^diff --(?:cc |git a\/)(\S+).*$/, "$1" );
 			files[ filename ] = [];
 		}
-		files[ filename ].push( line );
+		if (i > 5) files[ filename ].push( line );
 	});
 
 	if ( !files ) {

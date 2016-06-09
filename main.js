@@ -132,7 +132,7 @@ ipcMain.on('get-branches', (event, repoPath) => {
   Getting info about a commit
 */
 ipcMain.on('get-commit-info', (event, commitHash) => {
-  let gitCommand = 'git diff ' + commitHash;
+  let gitCommand = 'git show ' + commitHash;
   console.log(gitCommand);
   shell.exec(gitCommand, (err, stdout, stderr) => {
     if (err){
