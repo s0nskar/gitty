@@ -104,15 +104,9 @@ ipcRenderer.on('branches', (event, branches) => {
 });
 
 ipcRenderer.on('commit-info', (event, info) => {
-  // console.log(info);
   let cardBox = document.createElement('div');
   let cardWrapper = document.querySelector('.is-open');
-  // let desctiption = document.createElement('code');
-  // let p = document.createElement('pre');
   cardBox.innerHTML = info;
-  // desctiption.innerHTML = info.replace('<', '&lt;').replace('>', '&gt');
-  // p.appendChild(desctiption);
-  // cardBox.appendChild(p);
   cardBox.classList.add('card-box');
   cardWrapper.appendChild(cardBox);
 });
