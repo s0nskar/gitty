@@ -1,7 +1,7 @@
 /* Nav */
 
 .nav {
-  width: 340px;
+  width: 300px;
   overflow-x: hidden;
   overflow-y: auto;
   color: var(--color-subtle);
@@ -146,4 +146,19 @@
 /* Remove border on the logo */
 .nav-footer-logo.nav-footer-logo {
   border-bottom: none;
+}
+
+/* Refesh button */
+
+#refresh-local-repos {
+  float: right;
+  padding-right: 10px
+}
+
+/* Folder icon */
+
+.folder-icon {
+  width: 25px;
+  padding-right: 5px;
+  float: left;
 }

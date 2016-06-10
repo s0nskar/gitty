@@ -8,9 +8,9 @@ setTimeout(() => {
 
 ipcRenderer.send('get-local-repos');
 
-let refreshLocalReposBtn = document.getElementById('refresh-local-repos');
+let refreshLocalRepos = document.getElementById('refresh-local-repos');
 
-refreshLocalReposBtn.addEventListener('click', () => {
+refreshLocalRepos.addEventListener('click', () => {
   ipcRenderer.send('refresh-local-repos');
 });
 
@@ -20,25 +20,28 @@ ipcRenderer.on('local-repos', (event, localRepos) => {
   repoNav.innerHTML = ''
 
   localRepos.forEach((repo) => {
-    let repoName = path.basename(repo);
-    let repoDiv = document.createElement('div');
-    let repoBtn = document.createElement('button');
-    let repoPath = document.createElement('div');
+    if (repo){
+      let repoName = path.basename(repo);
+      let repoDiv = document.createElement('div');
+      let repoBtn = document.createElement('button');
+      let repoPath = document.createElement('div');
 
-    repoBtn.classList.add('nav-button', 'local-repos');
-    repoBtn.appendChild(document.createTextNode(repoName));
-    repoPath.hidden = true;
-    repoPath.appendChild(document.createTextNode(repo));
-    repoDiv.appendChild(repoBtn);
-    repoDiv.appendChild(repoPath);
-    repoNav.appendChild(repoDiv);
+      repoBtn.innerHTML = '<img src="app/assets/img/folder.svg" class="folder-icon"/>';
+      repoBtn.classList.add('nav-button', 'local-repos');
+      repoBtn.appendChild(document.createTextNode(repoName));
+      repoPath.hidden = true;
+      repoPath.appendChild(document.createTextNode(repo));
+      repoDiv.appendChild(repoBtn);
+      repoDiv.appendChild(repoPath);
+      repoNav.appendChild(repoDiv);
 
-    repoDiv.addEventListener('click', (event) => {
-      let repoPath = event.path[1].childNodes[1].innerHTML;
-      prepareRepo(repoPath);
-      ipcRenderer.send('get-commits', repoPath);
-      ipcRenderer.send('get-branches', repoPath);
-    });
+      repoDiv.addEventListener('click', (event) => {
+        let repoPath = event.path[1].childNodes[1].innerHTML;
+        prepareRepo(repoPath);
+        ipcRenderer.send('get-commits', repoPath);
+        ipcRenderer.send('get-branches', repoPath);
+      });
+    }
   });
 });
 
