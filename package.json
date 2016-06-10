@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/sanskar-modi/gitty",
   "dependencies": {
+    "highlight.js": "^9.4.0",
     "nconf": "^0.8.4",
     "shelljs": "^0.7.0"
   },

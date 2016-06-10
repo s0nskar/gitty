@@ -2,6 +2,8 @@ const {ipcRenderer} = require('electron');
 
 const path = require('path');
 
+const hljs = require('highlight.js')
+
 setTimeout(() => {
     document.querySelector('#about-modal').classList.remove('is-shown');
 },3000);
@@ -117,4 +119,10 @@ ipcRenderer.on('commit-info', (event, info) => {
   cardBox.innerHTML = info;
   cardBox.classList.add('card-box');
   cardWrapper.appendChild(cardBox);
+
+  const codeBlocks = document.querySelectorAll('pre.insert, pre.delete, pre.context');
+  console.log('pre', codeBlocks);
+  codeBlocks.forEach((line) => {
+    hljs.highlightBlock(line);
+  })
 });
