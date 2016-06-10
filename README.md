@@ -13,7 +13,7 @@ moment but i'm working on it.
 
 Screenshots:
 
-![Screenshot_1](http://s33.postimg.org/cpoirlw9r/Screenshot_from_2016_06_11_03_27_09.png)
+![Screenshot_1](http://s33.postimg.org/k4amsd7kv/Screenshot_from_2016_06_11_03_27_09.png)
 
 Follow the instruction to install developer version
 ```bash
