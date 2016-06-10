@@ -36,6 +36,11 @@ ipcRenderer.on('local-repos', (event, localRepos) => {
       repoNav.appendChild(repoDiv);
 
       repoDiv.addEventListener('click', (event) => {
+        /* Don't mess here */
+        let prevSelected = document.querySelector('.is-selected');
+        if (prevSelected) prevSelected.classList.remove('is-selected');
+        event.target.classList.add('is-selected');
+
         let repoPath = event.path[1].childNodes[1].innerHTML;
         prepareRepo(repoPath);
         ipcRenderer.send('get-commits', repoPath);
